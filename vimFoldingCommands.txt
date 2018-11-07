@@ -1,0 +1,10 @@
+1):set foldmethod=marker
+   default market is {{{  }}}
+
+2)zM - fold all
+  zR - unfold all
+  za  - toogle to fold and unfold at speficifc cursor location
+  space bar  - to unfold specific fold
+
+3):set foldmarker=start,end
+  ex:set foldmarker=/*,*/

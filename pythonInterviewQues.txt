@@ -1,0 +1,222 @@
+{{{
+When using vim editor
+a):set foldmethod=marker
+   default market is {{{  }}}
+
+b)zM - fold all
+  zR - unfold all
+  za  - toogle to fold and unfold at speficifc cursor location
+  space bar  - to unfold specific fold
+
+c):set foldmarker=start,end
+  ex:set foldmarker=/*,*/
+}}}
+
+
+1)What are iterators? How do u create iterators? How 'for' statement uses iterators without raising StopIteration
+{{{
+  Ans : An object that can be iterated is an iterator. To create an iterators your class should implement two magic
+   	method __iter__, __next__ and StopIteration should be raised when items got over
+           my_list = [1,3] is an iterator
+           a = iter(my_list); next(a), next(a), next(a)
+	   EX: Implement PowTwo class
+}}}
+2)what are generators?What is advantage? 
+{{{
+   Ans: Any function that has yield statement is generator.
+        OverHead of implementing of __iter__, __next__ and keep track to raise StopIteration is taken care by generators
+	def powTow(val):
+	    x=0
+	    while(x<=val):
+		yield 2**x
+}}}
+3)what are python Enclosures?
+  Can we change the value that is refered in nested function from the enclosing function?
+{{{
+   Ans: python enclosure Should have 1)Enclosing function 2)Nested fun insite enclosing func
+                    		     3)nested func should refere to a val n enclosng func
+                  		     4)enclosing func should return nested func
+       b)yes we can change the refered value in the nested function
+
+}}}
+
+4)What are decorators?And where it can be used by example
+{{{
+}}}
+
+5)How is garbage collector of python is implemented?
+{{{
+  In python everything is a object, so the variable just referes to the vaiable.python collects garbage by two ways
+   1)Reference counting (reference counting does not take care cyclic references)
+      Reference counting: python keeps tracks of how many references are there for a variable , it keeps on incrementing 
+   		        references when a new variable is refered to that object. When variables goes out of scope or delted it decreases the references, 
+  		         when the reference count becomes zero the memory is freed.
+   2)Resolve cyclic references
+        Resolve Cyclic Reference: cylic reference occur when 'a' stores 'b' refrence and 'b' stores 'a' reference
+        b.a_ref = a
+        a.b_rec = b
+   Python usally maintains how may vairables are created and how many are destroyed. A threshold is maintained for (created-destroyed) items,
+   when threshold is hit, it starts resolving cyclic reference. Separte algorithms exits to clear these reference
+}}}
+
+6)what is difference between 'range' in python2 and python3
+{{{
+   range returns list in python2 and a iterator in python3
+}}}
+
+7)Difference between class method and static method?
+{{{
+    static method does not have access to instance self or class name. its just like utility functin takes arugments and works on that.
+    class method have access to class(or class name), it return new class instances. Its first argment is class name.
+    Both static and class can we invoked directly from class name, main difference is class method gets class name as first argument
+}}}
+
+8)Difference between 'is' and '==' in python?
+{{{
+    '==' compares the values of both the operands and checks for value equality.
+    is operator is equivalent to comparing id(x) values. "is" operator checks whether both the operands refer to the same object or not. 
+     Q)a=10,b=10  ->  print(a==b) print(a is b)-> both will give True
+       a="string", b="string"   -> a==b and (a is b) both gives True
+       a=[], b=[] -> a==b give true while (a is b) gives false
+}}}
+
+9)Are strings mutable or immutable in python? what is output of a="str", b="str"   , a is b ?
+{{{
+    strings are immutable objects.  if you want to creat a new string when compiler will check have it created a string with same value, if yes
+    then retrun the reference of that
+    id(a) and id(b) will be same, so (a is b) will return true
+}}}
+
+10)Reverse a string in python?
+{{{
+    a)extended slice -> str="MyStrring",  print(str[::-1])
+    b)using for ->
+       s = ''
+       for i in str:
+           s = i+s
+        return s
+}}}
+
+11)what does 'find' method does in string?what it will return if substring found and notfound?
+   what does 'count' method does in string?what it will return if substing found and notfound?
+   str1 = 'gdadadcdada$23dadad' str2='dad' , find number of str2 in str1? Answer is 
+   str1 = 'ddada$dadadadartdadada' , str2 ='dad'. find number of str2 in str1? Answer is 6?
+   why count wont work here?
+{{{
+    find method returns the index in the mainstring, if not matched then it returns -1
+    count returns number of substrings
+    check subStrCount.py file
+}}}
+
+12)Selective reserve a string, if non alphabet occurs then reverse input= "abc$def1wer%" ouput = "cba$fed1rew%
+{{{
+    str.isaplha() method return True if all elements in the string is alphabets.
+    str[::-1] reverse the string
+}}}
+
+13)add val in two dicts d1={'vik':10, "prav":20} d2={'vik':100,'prav':200} output is d3={'vik':110,'prav':220}
+{{{
+    use dictinary comprehension, tips: we can set default val to dict get method -> dict.get(key,defaul_val)
+                                       set(dict) gives keys of dictionary in a set
+        finalD = {key:d1.get(key,0)+d2.get(key,0) for key in set(d1)
+    to get keys in d1 and d2, we can use perform operation on sets union, intersection ,Xor etc
+        finalD = {key:d1.get(key,0)+d2.get(key,0) for key in (set(d1) & set(d2)
+
+}}}
+
+14)write a custom print function? it should behave like normal python print
+{{{
+    here user can pass any number of arguments so use *k in arguments to collect all values
+    def user_print(*k): #print in python converts all arugments in to string and contatinate
+        my_list = [str(val) for val in k]
+        finaStr = ''.join(my_list)
+}}}
+
+15)given a matrix M. find the transpose of a matrix
+{{{
+	[[M[j][i] for j in range(len(M))] for i in range(len(M(0))]
+}}}
+
+16)Merge two dictionaries
+{{{
+    best method is to use -> dictionary comprehension. 
+    >>> {key:( sd2.get(key) if key in set(sd2) else sd1.get(key)) for key in (set(sd1)|set(sd2))}
+}}}
+
+18)if given tree, print its parents then print the value in the below order
+   pattern {{{  Input                    Output
+                a                         a
+            b       c                     a b
+          d   e  f    g                   a b d
+                                          a b e
+                                          a c
+                                          a c f
+                                          a c g
+        sol: use preorder for traversing
+  }}}
+
+19)In python dictionary what values can be taken as keys? Can we take list or tuple or dictionary or object as key?
+{{{
+    Anything that can be hashable can be taken as a key. hashable implies that can generate a unique value.
+    all immutable objects can be hashable, instances of objects can be keys since the instances have a method __hash__ which returns a hash value when stored as key.
+    List and dictionaries can not be stored as keys in python dictionaries
+}}}
+
+20)Validate the expression a)Always opening  bracket should be followed by closing bracket b)brackets can come in any number or order
+   Return where the first invalidate occurs.
+   EX: [a+b(]  -> Invalid Expression with character ( at location 5
+       {       -> Invalid Expression with character { at location 1
+       (1+2{}) -> Valid Expression
+{{{
+    check validate_expression.py file
+}}}
+
+
+21)Can you name a fucntionality where static method and class method behaves differently
+{{{
+    both methods works differently during inheritance. 
+    class method in a base class when called from a derived class have a derived class as first argument while when called from base class it has base class as firt argument
+    While static method in a base class cannot have access to derived class, it can only access base class
+    *** Look at staticAndClassMethods_2.py
+}}}
+
+
+22)Private variables and functions in python
+{{{
+In Python, "privacy" depends on "consenting adults'" levels of agreement - you can't force it (any more than you can in real life;-). 
+A single leading underscore means you're not supposed to access it "from the outside" -- two leading underscores (w/o trailing underscores) 
+carry the message even more forcefully... but, in the end, it still depends on social convention and consensus: 
+Python's introspection is forceful enough that you can't handcuff every other programmer in the world to respect your wishes
+}}}
+
+23)Number of unique elements in a list
+{{{
+   len(set(mylist))
+}}}
+
+24)what is monkey patching in python
+{{{
+}}}
+
+25)inheritance - If class A has method myMethod and class B has a method with same name myMethod. If class C inherits Class A and Class B, which method 
+   will get execute
+{{{
+    clsC(clsA,clsB) - > then class A method is called.
+    Method Resolution Order (MRO) is used to resolve the path. 
+    MRO is an advanced topic. One should read the whole MRO algo to understand, sometime exceptions are also raised while inherience
+    https://makina-corpus.com/blog/metier/2014/python-tutorial-understanding-python-mro-class-search-path
+    https://www.python.org/download/releases/2.3/mro/
+}}}
+
+26)What are dunder or magic methods?
+{{{
+Dunder or magic methods in Python. Dunder or magic methods in Python are the methods having two prefix and suffix underscores in the method name.
+Dunder here means “Double Under (Underscores)”. 
+These are commonly used for operator overloading.
+}}}
+
+27)what is set in python?
+{{{
+}}}
+
+
